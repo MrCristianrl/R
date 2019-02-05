@@ -18,6 +18,11 @@ cluster_k2 <- cutree(hc_players, k=2)
 
 lineup_k2_complete <- lineup %>% mutate(cluster=cluster_k2)
 
-#Graficamos cada jugador por equipo.
+#Graficamos un dendograma.
+
+plot(hc_players)
+
+#Graficamos cada jugador por equipo en el campo.
 
 ggplot(lineup_k2_complete, aes(x=x,y=y, col=factor(cluster))) + geom_point()
+
