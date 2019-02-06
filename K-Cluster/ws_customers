@@ -1,0 +1,37 @@
+library(dendextend)
+library(dplyr)
+
+ws_customers <- readRDS("~/R/ws_customers.rds")
+
+#Calculamos las distancias entre los clientes.
+
+dist_customers <- dist(ws_customers)
+
+#Creamos el objeto de conexiones entre las máximas distancias 
+
+hc_customers <- hclust(dist_customers, method="complete")
+
+#Pintamos el dendrograma
+
+plot(hc_customers)
+
+#Partimos en una distancia de 15000 para generar los clusters.
+
+cluster_customers <- cutree(hc_customers, h=15000)
+
+segment_customers <- ws_customers %>% mutate(clusters=cluster_customers)
+
+#Contamos cuántos elementos hay en cada grupo.
+
+count(segment_customers, cluster)
+
+#Modificamos el dendrograma para ponerlo a una altura máxima de 15000 y pintar los correspondientes clusters.
+
+dend_customers <- as.dendrogram(hc_customers)
+dend_colored <- color_branches(dend_customers, h=15000)
+plot(dend_colored)
+
+segment_customers %>% 
+  group_by(clusters) %>% 
+  summarise_all(funs(mean))
+
