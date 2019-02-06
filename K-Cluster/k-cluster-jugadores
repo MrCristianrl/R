@@ -18,11 +18,23 @@ cluster_k2 <- cutree(hc_players, k=2)
 
 lineup_k2_complete <- lineup %>% mutate(cluster=cluster_k2)
 
-#Graficamos un dendograma.
-
-plot(hc_players)
-
-#Graficamos cada jugador por equipo en el campo.
+#Graficamos cada jugador por equipo.
 
 ggplot(lineup_k2_complete, aes(x=x,y=y, col=factor(cluster))) + geom_point()
 
+#--
+#--
+#Aplicamos ahora el método de k-medias.
+#--
+#--
+
+model_kmp <- kmeans(lineup, centers=2)
+
+cluster_kmp <- model_kmp$cluster
+
+lineup_kmp <- lineup %>% mutate(clusters=cluster_kmp)
+
+ggplot(lineup_kmp, aes(x = x, y = y, color = factor(clusters))) +
+  geom_point()
+
+       
