@@ -1,15 +1,15 @@
-#Primera pr·ctica con k-clusters en la identificaciÛn de los jugadores del mismo equipo en un partido de 6vs6 sabiendo las posiciones de los jugadores al inicio.
+#Primera pr√°ctica con k-clusters en la identificaci√≥n de los jugadores del mismo equipo en un partido de 6vs6 sabiendo las posiciones de los jugadores al inicio.
 
 library(dplyr)
 library(ggplot2)
 
 lineup <- data.frame("x"=c(-1,-2,8,7,-12,-15,-13,15,21,12,-25,26),"y"=c(1,-3,6,-8,8,0,-10,16,2,-15,1,0))
 
-#Calculamos la distancia euclÌdea entre todos los jugadores.
+#Calculamos la distancia eucl√≠dea entre todos los jugadores.
 
 dist_players <- dist(lineup)
 
-#Mediante las dos siguientes funciones, agrupamos los jugadores mediante el m·ximo enlace completo e identificamos a quÈ equipo corresponde cada jugador.
+#Mediante las dos siguientes funciones, agrupamos los jugadores mediante el m√°ximo enlace completo e identificamos a qu√© equipo corresponde cada jugador.
 
 hc_players <- hclust(dist_players, method="complete")
 cluster_k2 <- cutree(hc_players, k=2)
@@ -21,3 +21,20 @@ lineup_k2_complete <- lineup %>% mutate(cluster=cluster_k2)
 #Graficamos cada jugador por equipo.
 
 ggplot(lineup_k2_complete, aes(x=x,y=y, col=factor(cluster))) + geom_point()
+
+#--
+#--
+#Aplicamos ahora el m√©todo de k-medias.
+#--
+#--
+
+model_kmp <- kmeans(lineup, centers=2)
+
+cluster_kmp <- model_kmp$cluster
+
+lineup_kmp <- lineup %>% mutate(clusters=cluster_kmp)
+
+ggplot(lineup_kmp, aes(x = x, y = y, color = factor(clusters))) +
+  geom_point()
+
+       
