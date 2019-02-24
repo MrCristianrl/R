@@ -1,1 +1,1 @@
-En este repositorio se encontrarán proyectos de R analizando datasets.
+Carpeta con datasets obtenidos de kaggle en el que se realiza su limpieza para análisis.
