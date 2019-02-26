@@ -6,8 +6,8 @@ lista_plantillas <- list("http://www.footballsquads.co.uk/spain/2018-2019/laliga
 
 plantillas <- vector("list", length = 20)
 
-extraer_plantillas<- function(x, i) {
-  url <- x[[i]]
+for (i in 1:20){
+  url <- lista_plantillas[[i]]
   tmp <- read_html(url)
   tmp <- html_nodes(tmp,"table")
   plantilla <- html_table(tmp[[1]], header=T)
@@ -19,13 +19,10 @@ extraer_plantillas<- function(x, i) {
   j <- which(plantilla=="Name")
   k <- j-2
   plantilla_club <- plantilla[1:k, ] %>% mutate(Club=club)
-  }
+  plantillas[[i]] <- plantilla_club
+}
 
- for (i in 1:20){
- 
-   plantillas[[i]] <- extraer_plantillas(lista_plantillas,i)
- }
 
-extraer_plantillas(lista_plantillas, i)
+
 
 data <- rbindlist(plantillas)
