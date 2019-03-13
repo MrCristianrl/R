@@ -3,7 +3,7 @@ En este proyecto se analizará el dataset creado por los jugadores de Primera Di
 El dataset está compuesto por las columnas:
 
 - Nombre.
-- Puntos totales: Puntos que lleva el jugador hasta el momento (27/02/2019).
+- Puntos totales: Puntos que lleva el jugador hasta el momento (13/03/2019).
 - Media: Puntos divididos por el número de partidos jugados hasta el momento.
 - Puntos casa: Puntos recibidos en los partidos como local.
 - Media casa: La media de puntos habiendo jugado como local.
