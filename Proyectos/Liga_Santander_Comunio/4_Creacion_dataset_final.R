@@ -6,6 +6,9 @@
 #Sustituímos los nombres de algunos jugadores que no coinciden en ambos datasets, pero sin embargo están en ambos. Esto es debido a que muchos son nombres compuestos o tienen algún caracter especial. Los cambiamos a mano después de buscar las filas cuyo valor en la columna Nombre.comunio es NA.
 #No es el mejor método si lo pensamos en datasets muy grandes, pero en este caso se puede hacer a ojo ya que el dataset lo permite.
 
+#Sustituímos los nombres de algunos jugadores que no coinciden en ambos datasets, pero sin embargo están en ambos. Esto es debido a que muchos son nombres compuestos o tienen algún caracter especial. Los cambiamos a mano después de buscar las filas cuyo valor en la columna Nombre.comunio es NA.
+#No es el mejor método si lo pensamos en datasets muy grandes, pero en este caso se puede hacer a ojo ya que el dataset lo permite.
+
 data2 <- data
 jugadores_comunio[!jugadores_comunio$Nombre %in% data$Nombre.comunio,]
 
@@ -128,4 +131,5 @@ Jugadores2<-left_join(Jugadores, jugadores_liga_santander, by=c(Nombre.plantilla
 #Este es el dataframe final cruzando los datos de los jugadores del comunio y de las plantillas obtenidas.                  
 
 Jugadores_final <- left_join(Jugadores2, jugadores_comunio, by=c(Nombre.comunio="Nombre"))
+
 
