@@ -2,6 +2,8 @@
 
 library(data.table)
 
+#Cargamos los 20 enlaces con las plantillas de los 20 equipos.
+
 lista_plantillas <- list("http://www.footballsquads.co.uk/spain/2018-2019/laliga/alaves.htm", "http://www.footballsquads.co.uk/spain/2018-2019/laliga/abilbao.htm", "http://www.footballsquads.co.uk/spain/2018-2019/laliga/amadrid.htm", "http://www.footballsquads.co.uk/spain/2018-2019/laliga/barce.htm", "http://www.footballsquads.co.uk/spain/2018-2019/laliga/betis.htm", "http://www.footballsquads.co.uk/spain/2018-2019/laliga/celta.htm","http://www.footballsquads.co.uk/spain/2018-2019/laliga/eibar.htm", "http://www.footballsquads.co.uk/spain/2018-2019/laliga/espanyol.htm","http://www.footballsquads.co.uk/spain/2018-2019/laliga/getafe.htm","http://www.footballsquads.co.uk/spain/2018-2019/laliga/girona.htm","http://www.footballsquads.co.uk/spain/2018-2019/laliga/huesca.htm","http://www.footballsquads.co.uk/spain/2018-2019/laliga/leganes.htm","http://www.footballsquads.co.uk/spain/2018-2019/laliga/levante.htm","http://www.footballsquads.co.uk/spain/2018-2019/laliga/rayo.htm","http://www.footballsquads.co.uk/spain/2018-2019/laliga/rmadrid.htm","http://www.footballsquads.co.uk/spain/2018-2019/laliga/sociedad.htm","http://www.footballsquads.co.uk/spain/2018-2019/laliga/sevilla.htm", "http://www.footballsquads.co.uk/spain/2018-2019/laliga/valencia.htm","http://www.footballsquads.co.uk/spain/2018-2019/laliga/vallad.htm","http://www.footballsquads.co.uk/spain/2018-2019/laliga/villar.htm")
 
 plantillas <- vector("list", length = 20)
@@ -22,7 +24,4 @@ for (i in 1:20){
   plantillas[[i]] <- plantilla_club
 }
 
-
-
-
-data <- rbindlist(plantillas)
+jugadores_liga_santander <- rbindlist(plantillas)
