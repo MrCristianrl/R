@@ -3,12 +3,6 @@
 #Sustituímos los nombres de algunos jugadores que no coinciden en ambos datasets, pero sin embargo están en ambos. Esto es debido a que muchos son nombres compuestos o tienen algún caracter especial. Los cambiamos a mano después de buscar las filas cuyo valor en la columna Nombre.comunio es NA.
 #No es el mejor método si lo pensamos en datasets muy grandes, pero en este caso se puede hacer a ojo ya que el dataset lo permite.
 
-#Sustituímos los nombres de algunos jugadores que no coinciden en ambos datasets, pero sin embargo están en ambos. Esto es debido a que muchos son nombres compuestos o tienen algún caracter especial. Los cambiamos a mano después de buscar las filas cuyo valor en la columna Nombre.comunio es NA.
-#No es el mejor método si lo pensamos en datasets muy grandes, pero en este caso se puede hacer a ojo ya que el dataset lo permite.
-
-#Sustituímos los nombres de algunos jugadores que no coinciden en ambos datasets, pero sin embargo están en ambos. Esto es debido a que muchos son nombres compuestos o tienen algún caracter especial. Los cambiamos a mano después de buscar las filas cuyo valor en la columna Nombre.comunio es NA.
-#No es el mejor método si lo pensamos en datasets muy grandes, pero en este caso se puede hacer a ojo ya que el dataset lo permite.
-
 data2 <- data
 jugadores_comunio[!jugadores_comunio$Nombre %in% data$Nombre.comunio,]
 
@@ -120,16 +114,36 @@ data4 <- data3
 
 data4$Nombre.comunio[c(47,524,306, 301, 30)] <- c("De Marcos","Gnagnon","Seung-Ho Paik", "Kevin Soni","Alex Remiro")
 
+# #Editamos los nombre de los jugadores que coinciden en la plantilla, pues al unirlos luego se dupliarán.
+
 #Eliminamos los NAs.
 
-Jugadores <- data4[complete.cases(data4), ]
+Jugadores <- data4[complete.cases(data5), ]
 
 Jugadores <- Jugadores[,1:2]
 
-Jugadores2<-left_join(Jugadores, jugadores_liga_santander, by=c(Nombre.plantilla="Nombre"))
+Jugadores2<- inner_join(Jugadores, jugadores_liga_santander, by=c(Nombre.plantilla="Nombre")) %>% select(-id)
+
+data5 <- Jugadores2
+
+rownames(data5) <- 1:nrow(data5)
+
+data5 %>% mutate(index=row_number())
+
+count(data5[!is.na(data5$Nombre.plantilla),], Nombre.plantilla) %>% filter(n>1)
+
+data5 %>% filter(Nombre.plantilla %in% c("Alberto","Bruno","Javi López","Joaquín","Koke","Raúl García","Sergio Álvarez"))
 
 #Este es el dataframe final cruzando los datos de los jugadores del comunio y de las plantillas obtenidas.                  
 
-Jugadores_final <- left_join(Jugadores2, jugadores_comunio, by=c(Nombre.comunio="Nombre"))
+Jugadores4 <- left_join(data5, jugadores_comunio, by=c(Nombre.comunio="Nombre"))
+
+Jugadores4 <- Jugadores4 %>% mutate(index=row_number())
+
+Jugadores4 %>% filter(Nombre.plantilla %in% c("Alberto","Bruno","Javi López","Joaquín","Koke","Raúl García","Sergio Álvarez")) %>% select(Nombre.comunio, Nombre.plantilla, Puntos_totales, index, Club, Posición)
+
+Jugadores_final <- Jugadores4[-c(46,59,117,127,158,191, 207, 241, 306, 332,333,465, 506),]
+
+Jugadores_final %>% filter(Nombre.plantilla %in% c("Alberto","Bruno","Javi López","Joaquín","Koke","Raúl García","Sergio Álvarez")) %>% select(Nombre.comunio, Nombre.plantilla, Puntos_totales, index, Club, Posición)
 
 
